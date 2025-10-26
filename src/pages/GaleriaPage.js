@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ShoppingCart, Filter } from 'lucide-react';
 import { productos, categorias } from '../data/productos';
 
+
 function GaleriaPage({ onAgregarAlCarrito }) {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('todas');
 

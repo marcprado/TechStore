@@ -310,5 +310,5 @@ function CarritoPage({ carrito, onIncrement, onDecrement, onRemove, onVaciar }) 
     </div>
   );
 }
-
 export default CarritoPage;
+
