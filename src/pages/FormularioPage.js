@@ -25,13 +25,18 @@ function FormularioPage() {
     console.log('Datos:', formData);
 
     try {
-      const response = await fetch('http://localhost:3001/enviar-correo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nombre: nombreCompleto,
+            email: email,
+            asunto: asunto,
+            mensaje: mensaje
+          })
+        });
 
       console.log('📥 Respuesta del servidor:', response.status);
 
