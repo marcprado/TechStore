@@ -21,7 +21,7 @@ function FormularioPage() {
     e.preventDefault();
     setEstado('enviando');
 
-    console.log('📤 Enviando formulario a: http://localhost:3001/enviar-correo');
+    console.log('📤 Enviando formulario a: /api/contact');
     console.log('Datos:', formData);
 
     try {
@@ -31,10 +31,10 @@ function FormularioPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            nombre: nombreCompleto,
-            email: email,
-            asunto: asunto,
-            mensaje: mensaje
+            nombre: formData.nombre,
+            email: formData.email,
+            asunto: formData.asunto,
+            mensaje: formData.mensaje
           })
         });
 
@@ -181,7 +181,7 @@ function FormularioPage() {
               marginBottom: '20px',
               fontWeight: '600'
             }}>
-              Error al enviar el mensaje. Verifica que el servidor esté corriendo en el puerto 3001.
+              Error al enviar el mensaje. Por favor intenta nuevamente.
             </div>
           )}
 
