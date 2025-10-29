@@ -21,22 +21,17 @@ function FormularioPage() {
     e.preventDefault();
     setEstado('enviando');
 
-    console.log('📤 Enviando formulario a: /api/contact');
+    console.log('📤 Enviando formulario a: http://localhost:3001/enviar-correo');
     console.log('Datos:', formData);
 
     try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nombre: formData.nombre,
-            email: formData.email,
-            asunto: formData.asunto,
-            mensaje: formData.mensaje
-          })
-        });
+      const response = await fetch('http://localhost:3001/enviar-correo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
 
       console.log('📥 Respuesta del servidor:', response.status);
 
@@ -181,7 +176,7 @@ function FormularioPage() {
               marginBottom: '20px',
               fontWeight: '600'
             }}>
-              Error al enviar el mensaje. Por favor intenta nuevamente.
+              Error al enviar el mensaje. Verifica que el servidor esté corriendo en el puerto 3001.
             </div>
           )}
 
