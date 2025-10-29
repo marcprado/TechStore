@@ -1,16 +1,15 @@
 const nodemailer = require('nodemailer');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Configurar CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   // Manejar preflight request
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
 
   // Solo permitir POST
@@ -29,6 +28,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ 
         success: false,
         error: 'Todos los campos son requeridos' 
+      });
+    }
+
+    // Validar variables de entorno
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Variables de entorno no configuradas');
+      return res.status(500).json({ 
+        success: false,
+        error: 'Configuración del servidor incompleta' 
       });
     }
 
@@ -79,4 +87,4 @@ export default async function handler(req, res) {
       details: error.message 
     });
   }
-}
+};
